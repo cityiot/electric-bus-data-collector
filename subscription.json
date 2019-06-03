@@ -1,0 +1,20 @@
+{ 
+  "subject": {
+    "entities": [
+      {
+        "idPattern": ".*",
+        "type": "Vehicle"
+      }
+    ],
+    "condition": {
+      "attrs": []
+    }
+  },
+  "notification": {
+    "http": {
+      "url": "http://quantumleap:8668/v2/notify"
+    },
+    "attrs": [],
+    "metadata": ["timestamp", "dateCreated", "dateModified"]
+  }
+}

@@ -1,0 +1,13 @@
+{
+    "orion_URL": "https://tlt-cityiot.rd.tuni.fi/orion/v2/",
+    "quantumleap_URL": "https://tlt-cityiot.rd.tuni.fi/quantumleap/v2/",
+    "service": "test",
+    "service_path": "/",
+    "custom_headers": {
+        "apikey": ""
+    },
+    "update_strategy": "medium",
+    "send_to_ql": true,
+    "ql_multiple_notify": true,
+    "create_attribute_subscriptions": false
+}

@@ -1,0 +1,87 @@
+{
+    "busIDs": {
+        "256": 14,
+        "1855": 13,
+        "1884": 15,
+        "1911": 16,
+        "2767": 12
+    },
+    "attributes": {
+        "battery power": {
+            "name": "power"
+        },
+        "battery state of charge": {
+            "name": "chargeState"
+        },
+        "speedTCO1": {
+            "name": "speed"
+        },
+        "Speed": {
+            "name": "speed"
+        },
+        "location": {
+            "name": "location"
+        },
+        "air temperature": {
+            "name": "airTemperature"
+        },
+        "conditional power moving": {
+            "name": "powerMoving"
+        },
+        "conditional power stopped": {
+            "name": "powerStopped"
+        },
+        "distance": {
+            "name": "mileageFromOdometer"
+        },
+        "energy consumed": {
+            "name": "energyConsumed"
+        },
+        "Satellites": {
+            "name": "satellites"
+        },
+        "service brake air pressure 1": {
+            "name": "serviceBrakeAirPressure1"
+        },
+        "service brake air pressure 2": {
+            "name": "serviceBrakeAirPressure2"
+        },
+        "Uptime": {
+            "name": "uptime"
+        },
+        "current gear": {
+            "name": "gear",
+            "type": "Text",
+            "mapping": {
+                "-1": "reverse",
+                "0": "neutral",
+                "1": "drive"
+            }
+        },
+        "door status": {
+            "name": "doorStatus",
+            "type": "Text",
+            "mapping": {
+                "0": "open",
+                "1": "closing",
+                "2": "closed"
+            }
+        },
+        "parking brake status": {
+            "name": "parkingBrakeEngaged",
+            "type": "Boolean",
+            "mapping": {
+                "0": false,
+                "1": true
+            }
+        },
+        "vehicle motion": {
+            "name": "isMoving",
+            "type": "Boolean",
+            "mapping": {
+                "0": false,
+                "1": true
+            }
+        }
+    }
+}
