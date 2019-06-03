@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+
+  electric-bus:
+    build: .
+    image: electric-bus
+    volumes:
+     - ./logs:/electric-bus/logs
+     - ./conf:/electric-bus/conf
