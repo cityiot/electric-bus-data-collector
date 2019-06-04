@@ -24,7 +24,7 @@ def main():
     console = logging.StreamHandler()
     log.addHandler( console )
     formatter = logging.Formatter('%(asctime)s %(levelname)s\n%(message)s')
-    fileLog = logging.handlers.RotatingFileHandler( logDir / 'log.txt', encoding = 'utf-8', maxBytes = 2**20, backupCount = 100 )
+    fileLog = logging.handlers.RotatingFileHandler( logDir / 'log.txt', encoding = 'utf-8', maxBytes = 2**20, backupCount = 10 )
     fileLog.setLevel( logging.INFO )
     fileLog.setFormatter( formatter )
     log.addHandler( fileLog )

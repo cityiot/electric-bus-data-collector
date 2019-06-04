@@ -210,6 +210,9 @@ def sendEntities( entities, useQl = None ):
             else:
                 break
                 
+        except KeyboardInterrupt:
+            raise
+         
         except:
             log.exception( f'Exception when updating FIWARE. Retrying after {retryTime} seconds.' )
         

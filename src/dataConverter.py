@@ -94,7 +94,7 @@ def convertToEntityUpdates( data ):
                                 value = conversionInfo[ 'mapping' ][str(value)]
                                 
                             except KeyError:
-                                log.warning( f'No conversion mapping for {nodeName} value {value} of {siteName}.' ) 
+                                log.warning( f'No conversion mapping for {nodeName} value {value} of {siteName} at {datetime.fromtimestamp( data["ts"] )}.' ) 
                                 continue
                                 
                         attribute['value'] = value

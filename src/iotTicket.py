@@ -51,6 +51,9 @@ def getData( begin, end ):
                     log.error( f'Failed to get measurements from IoT-Ticket. HTTP status code: {processdata.status_code}. Retrying after {retryTime} seconds.' )
                     log.error( processdata.text )
                     
+                except KeyboardInterrupt:
+                    raise
+                        
                 except:
                     log.exception( f'Exception when getting measurements from IoT-Ticket. Retrying after {retryTime} seconds.')
                     
