@@ -41,7 +41,7 @@ class Collector():
         self.begin = s2mrs( round( self.begin ) ) -s2mrs( 0.5 )
         self._setEndAndWait()
         while self.getData:
-            log.debug( f'{datetime.now()}: next measurement collection round started.' )
+            self._printState()
             data = iotTicket.getData( self.begin, self.end )
             #self._fakeGetMeasurements()
             
@@ -120,7 +120,7 @@ class Collector():
         self.end = s2mrs( round( time.time() ) ) -wait +499999
     
     def _printState(self):
-        log.debug( f'begin: {datetime.fromtimestamp(mrs2s(self.begin)).time()}, end: {datetime.fromtimestamp(mrs2s(self.end)).time()}, now: {datetime.now().time()}, period: {mrs2s(self.period)}' )
+        log.debug( f'Getting next measurements. begin: {datetime.fromtimestamp(mrs2s(self.begin)).time()}, end: {datetime.fromtimestamp(mrs2s(self.end)).time()}, duration: {mrs2s( self.end -self.begin):.1f} now: {datetime.now().time()}, period: {mrs2s(self.period)}' )
         
     def _fakeGetMeasurements(self):
         log.debug( f'{mrs2s(self.end -self.begin):.1f} measurement period.' )

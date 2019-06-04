@@ -31,7 +31,6 @@ def getDataNodes():
 def getData( begin, end ):
     data = {}
     startTime = time.time()
-    log.debug( f'Getting measurements from IoT-Ticket for time period  {datetime.fromtimestamp( begin /1000000 )} - {datetime.fromtimestamp( end /1000000 )}')
     params = {
         'begin': begin,
         'end': end
