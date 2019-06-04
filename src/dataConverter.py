@@ -102,8 +102,8 @@ def convertToEntityUpdates( data ):
                         
                     attribute['metadata'] = {
                         'timestamp': {
-                            'type': 'datetime',
-                            'value': datetime.utcfromtimestamp( data['ts'] ).isoformat()
+                            'type': 'DateTime',
+                            'value': datetime.utcfromtimestamp( data['ts'] ).isoformat() +'Z'
                         }
                     }
                     
