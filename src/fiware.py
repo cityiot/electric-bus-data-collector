@@ -6,6 +6,7 @@ import json
 import logging
 
 import dataConverter
+import iotTicket
 import config
 import utils
 
@@ -81,6 +82,7 @@ def createEntities():
             entity = {
                 'id': entityId,
                 'type': 'Vehicle',
+                'source': { 'value': f'{iotTicket.baseUrl}sites/{siteName}' },
                 'name': { 'value': dataConverter.getBusName( siteName ) },
                 'vehicleType': { 'value': 'bus' },
                 'category': { 'value': [ 'public', 'tracked' ] },
