@@ -120,7 +120,7 @@ class Collector():
         self.end = s2mrs( round( time.time() ) ) -wait +499999
     
     def _printState(self):
-        log.debug( f'Getting next measurements. begin: {datetime.fromtimestamp(mrs2s(self.begin)).time()}, end: {datetime.fromtimestamp(mrs2s(self.end)).time()}, duration: {mrs2s( self.end -self.begin):.1f} now: {datetime.now().time()}, period: {mrs2s(self.period)}' )
+        log.debug( f'Getting next measurements. begin: {datetime.fromtimestamp(mrs2s(self.begin))}, end: {datetime.fromtimestamp(mrs2s(self.end))}, duration: {mrs2s( self.end -self.begin):.1f} now: {datetime.now().time()}, period: {mrs2s(self.period)}' )
         
     def _fakeGetMeasurements(self):
         log.debug( f'{mrs2s(self.end -self.begin):.1f} measurement period.' )

@@ -178,6 +178,10 @@ def _updateOrion( updates ):
     sendEntities( entities, False )
                 
 def sendEntities( entities, useQl = None ):
+    if len( entities ) == 0:
+        log.debug( 'sendEntities got entity list with 0 entities. No need to send it.' )
+        return
+    
     if useQl == None:
         useQl = sendToQl
     sendEntities.count = sendEntities.count +1
