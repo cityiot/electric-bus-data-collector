@@ -43,7 +43,7 @@ def getData( begin, end ):
         for node in nodes:
             while True:
                 try:
-                    processdata = requests.get( node['href'] +'/processdata', auth = auth, params = params )
+                    processdata = requests.get( node['href'] +'/processdata', auth = auth, params = params, timeout = 120 )
                     if processdata.status_code == 200:
                         siteData[ node['name'] ] = processdata.json().get('items', [] )
                         break
