@@ -3,7 +3,7 @@
 ## Description
 
 This document describes how measurements from electric buses originally stored
-in Wapice IoT-Ticket will be stored to FIWARE.
+in Wapice IoT-Ticket are stored to FIWARE.
 
 ## Data Model
 
@@ -174,7 +174,7 @@ The following vehicle attributes are not used:
     -   Optional
 
 -   `power` : Power used from the bus battery. If this is negative the bus is
-    charging.
+    charging either from the grid or from braking.
 
     -   Attribute type: [Number](https:/schema.org/Number)
     -   Default unit: kilowatt
@@ -197,7 +197,7 @@ The following vehicle attributes are not used:
         -   Mandatory
     -   Optional
 
--   `powerMoving` : Purpose unclear for now.
+-   `powerMoving` : Same as power except measured only when the bus is moving.
 
     -   Attribute type: [Number](https:/schema.org/Number)
     -   Default unit: kilowatt
@@ -208,7 +208,7 @@ The following vehicle attributes are not used:
         -   Mandatory
     -   Optional
 
--   `powerStopped` : Purpose unclear for now.
+-   `powerStopped` : Same as power except measured only when the bus is stopped.
 
     -   Attribute type: [Number](https:/schema.org/Number)
     -   Default unit: kilowatt
@@ -298,7 +298,7 @@ The following vehicle attributes are not used:
         -   Mandatory
     -   Optional
 
--   `uptime` : Uptime of the measurement device (Wapice WRM 247+).
+-   `uptime` : Uptime of the measurement device (Wapice WRM 247+). Note only full hours are reported i.e. these are allways integers.
 
     -   Attribute type: [Number](https:/schema.org/Number)
     -   Default unit: hour
@@ -327,7 +327,7 @@ Normalized NGSI response
 
 ```json
 {
-    "id": "vehicle:TKL16",
+    "id": "Vehicle:TKL16",
     "type": "Vehicle",
     "source": {
         "value": "https://iot-ticket.tamk.cloud/rest/v1/sites/1911"
