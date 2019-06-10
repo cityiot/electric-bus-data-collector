@@ -206,7 +206,7 @@ def sendEntities( entities, useQl = None ):
     retryTime = 10
     while True:
         try:
-            response = requests.post( uri, headers = headers, json = payload, timeout = retryTime )
+            response = requests.post( uri, headers = headers, json = payload, timeout = 120 )
             if response.status_code != successStatus:
                 log.error( f'Update failed code: {response.status_code}. Retrying after {retryTime} seconds.' )
                 log.error( response.text )
