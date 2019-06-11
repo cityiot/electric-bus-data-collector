@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+'''
+Separate utility for printing out last measurements for each datanode of each site in IoT-Ticket.
+usage: python src/buses.py
+'''
 
 import requests
 from datetime import datetime

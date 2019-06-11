@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+'''
+Bus collector main file. Responsible for starting the data collection.
+'''
 
 import fiware
 import iotTicket
@@ -14,15 +17,28 @@ import errno
 from pathlib import Path
 import urllib3
 
+# get root logger
 log = logging.getLogger()
 
 def main():
+    '''
+    Function which starts the tool.
+    '''
+    # setup logging
+    # everything is logged to the console and log_debug file
+    # info, warnings and errors are logged to log.txt
+    # log rotating is used to limit log file sizes to 1 mb and 10 backup copies
+    
+    # directory where log files are saved
     logDir = utils.getAppDir() /'logs'
+    # create if not exists
     mkdir_p( logDir )
     log.setLevel( logging.DEBUG )
+    # because we set root logger log level other modules urllib3 logging is affected and we don't want that
     logging.getLogger( urllib3.__name__ ).setLevel( logging.WARNING )
     console = logging.StreamHandler()
     log.addHandler( console )
+    # how log messages are formatted in the files
     formatter = logging.Formatter('%(asctime)s %(levelname)s\n%(message)s')
     fileLog = logging.handlers.RotatingFileHandler( logDir / 'log.txt', encoding = 'utf-8', maxBytes = 2**20, backupCount = 10 )
     fileLog.setLevel( logging.INFO )
@@ -33,14 +49,20 @@ def main():
     fileLog.setFormatter( formatter )
     log.addHandler( fileLog )
     
+    # get start and end dates for collecting if given from config file
     startDate, endDate = _getStartAndEnd()
+    # get the list of datanodes we will be collecting measurements from
     iotTicket.getDataNodes()
+    # create FIWARE entities to Orion from the buses we collect data from if not already created
     fiware.createEntities()
     if not fiware.sendToQl:
+        # we will send measurements to QuantumLeap through Orion subscription(s) so create them if not already created
         fiware.addSubscription()
 
+    # create the collector that takes care of the actual collection process
     myCollector = Collector( startDate, endDate )
     try:
+        # and start collecting
         myCollector.startCollecting()
         
     except KeyboardInterrupt:
@@ -53,10 +75,16 @@ def main():
     log.info( 'Data collection done.' )
     
 def _getStartAndEnd():
+    '''
+    Reads measurement collection start and end dates from config file.
+    Checks also that they are ok.
+    ''' 
+    # read the relevant configuration file
     conf = config.loadConfig( 'collector.json' )
     startDate = conf.get( 'startDate', None )
     endDate = conf.get( 'endDate', None )
     try:
+        # if there are dates attempt to create datetime objects from them
         if endDate != None:
             endDate = datetime.fromisoformat( endDate )
             
@@ -88,6 +116,9 @@ def _getStartAndEnd():
 
 # Taken from https://stackoverflow.com/a/600612/119527
 def mkdir_p(path):
+    '''
+    Makes sure that the given directory exists.
+    '''
     try:
         os.makedirs(path)
     except OSError as exc: # Python >2.5
