@@ -31,7 +31,7 @@ If there is a startDate but not an endDate measurements from startDate are first
 
 IoT-Ticket i.e. the data source configuration:
 
-- url: IoT-Ticket REST API URL ending in rest/v1/
+- url: IoT-Ticket REST API URL ending with rest/v1/
 - username: IoT-Ticket account user name
 - password: IoT-Ticket account password.
 
@@ -50,7 +50,7 @@ This configuration file has the fiware Orion and QuantumLeap URLs and also setti
     - medium: Similar to simple except there is a maxinum number of updates per request.
 - send_to_ql: If true measurement updates are sent directly to QuantumLeap and only the latest values are send to Orion. If false everything is sent to Orion and QuantumLeap is updated using the subscription system of Orion. This can be inefficient and data will probably be lost.
 - ql_multiple_notify: Relevant only if sed_to_ql is true. If true the used QuantumLeap instance is expected to [support multiple data elements in notifications](https://github.com/smartsdk/ngsi-timeseries-api/pull/191)
-(version later than 0.6.1). Multiple entity updates are then sent in one request which is the most efficient way to update. Update_strategy medium is then recommended. If value is false only one entity per update request is sent.
+(version later than 0.6.1). Multiple entity updates are then sent in one request which is the most efficient way to update. Update_strategy medium is then recommended. If value is false only one entity per update request is sent and update strategy small is automatically used.
 - create_attribute_subscriptions: Relevant only if sed_to_ql is false i.e. measurements to QL are send via Orion subscriptions. If false only one subscription is created so that if any attribute changes all attributes are sent in the notification. If this is true a separate subscription is created for each attribute.
 
 ### converter.json
@@ -59,7 +59,7 @@ Determines how IoT-Ticket data is converted to FIWARE entities. Normally there i
 
 busIDs attribute has the ids of the IoT-Ticket sites where the bus data is saved to. They are mapped to bus numbers used by the city. The number is used in naming the FIWARE entities. For example bus with number 14 is named Vehicle:TKL14.
 
-The attributes attribute holds an object that defines how values from an IoT-Ticket datanode are converted to entity attributes. A key name is the name of a data node and the object it contains has conversion info. There is at least a name that determines the entity attribute name. Type is the NGSI v2 type. Mapping is an object that maps the datanode value to a different value. For example door status is indicated with numbers in IoT-Ticket but for the FIWARE entity they are converted to human understandable text e.g. value 0 to open. 
+The attributes attribute holds an object that defines how values from an IoT-Ticket datanode are converted to entity attributes. A key name is the name of a data node and the object it contains has conversion info. There is at least a name that determines the entity attribute name. Type is the NGSI v2 type. If type is omitted Number is assumed. Mapping is an object that maps the datanode value to a different value. For example door status is indicated with numbers in IoT-Ticket but for the FIWARE entity they are converted to human understandable text e.g. value 0 to open. 
 
 ## Logging
 
@@ -98,3 +98,9 @@ Simply start with the included compose file:
     docker-compose up -d
     
 The compose file connects the conf and logs directories as volumes inside the container. So for example logs are written to the docker host's file system and not inside the container.
+
+## Implementation notes
+
+- IoT-Ticket measurement time stamps are rounded to the nearest second. The original time stamps are mostly unique for each measurement since they are updated separately. Without rounding they would not go nicely to QuantumLeap since internally it creates a separate database row for each time stamp.
+- When data is send directly to QuantumLeap only the latest updates are sent to Orion for each measurement collection round. In history collection the duration of this round is 2 hours and in real time 60 seconds.
+- When real time collecting there is a short 30 seconds delay between the current time and the period measurements are collected from. This is to ensure that the measurements have arrived to IoT-Ticket.

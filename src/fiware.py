@@ -151,19 +151,8 @@ def sendData( updates ):
     '''
     # count how many HTTP requests will be done to send the updates
     sendEntities.count = 0
-    # Different ways of making the updates an corresponding methods for do in so.
-    updateMethods = {
-        'small': sendDataSmall,
-        'medium': sendDataMedium,
-        'simple': sendDataSimple
-    }
     # log how long update takes so get start time
-    updateStart = time.time()
-    updateMethod = updateMethods.get( updateStrategy )
-    if updateMethod == None:
-        log.error( f'Invalid FIWARE update method {updateStrategy}. Available strategies {", ".join(updateMethods.keys())}.')
-        exit()
-        
+    updateStart = time.time()    
     updateMethod( updates )
     log.debug( 'Sent {0} update requests took {1:.1f} seconds'.format( sendEntities.count, time.time() -updateStart) )
     if sendToQl:
@@ -415,3 +404,20 @@ sendToQl = conf['send_to_ql']
 qlMultipleNotify = conf['ql_multiple_notify']
 updateStrategy = conf['update_strategy']
 createAttributeSubscriptions = conf['create_attribute_subscriptions']
+
+# determine how FIWARE is updated based on configuration
+# Different ways of making the updates an corresponding methods for do in so.
+updateMethods = {
+    'small': sendDataSmall,
+    'medium': sendDataMedium,
+    'simple': sendDataSimple
+}
+
+updateMethod = updateMethods.get( updateStrategy )
+if sendToQl and not qlMultipleNotify:
+    # if sending to ql and it has no support for multiple elements in notifications we have to use small update strategy
+    updateMethod = updateMethods.get( 'small' ) 
+    
+if updateMethod == None:
+    log.error( f'Invalid FIWARE update method {updateStrategy}. Available strategies {", ".join(updateMethods.keys())}.')
+    exit()
