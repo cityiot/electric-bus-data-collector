@@ -51,6 +51,7 @@ This configuration file has the fiware Orion and QuantumLeap URLs and also setti
 - send_to_ql: If true measurement updates are sent directly to QuantumLeap and only the latest values are send to Orion. If false everything is sent to Orion and QuantumLeap is updated using the subscription system of Orion. This can be inefficient and data will probably be lost.
 - ql_multiple_notify: Relevant only if sed_to_ql is true. If true the used QuantumLeap instance is expected to [support multiple data elements in notifications](https://github.com/smartsdk/ngsi-timeseries-api/pull/191)
 (version later than 0.6.1). Multiple entity updates are then sent in one request which is the most efficient way to update. Update_strategy medium is then recommended. If value is false only one entity per update request is sent and update strategy small is automatically used.
+- update_orion: Relevant only when send_to_ql is true. Determines if Orion is updated at all or if measurements are just sent to QuantumLeap. Useful when collecting older historical data and Orion already has newer updates.
 - create_attribute_subscriptions: Relevant only if sed_to_ql is false i.e. measurements to QL are send via Orion subscriptions. If false only one subscription is created so that if any attribute changes all attributes are sent in the notification. If this is true a separate subscription is created for each attribute.
 
 ### converter.json

@@ -155,8 +155,8 @@ def sendData( updates ):
     updateStart = time.time()    
     updateMethod( updates )
     log.debug( 'Sent {0} update requests took {1:.1f} seconds'.format( sendEntities.count, time.time() -updateStart) )
-    if sendToQl:
-        # if we updated quantumleap directly send newest updates to Orion too
+    if sendToQl and updateOrion:
+        # if we updated quantumleap directly send newest updates to Orion too if configured so
         _updateOrion( updates )
     
 def sendDataSmall( updates ):
@@ -402,6 +402,7 @@ del subscriptionHeaders['Fiware-ServicePath']
 
 sendToQl = conf['send_to_ql']
 qlMultipleNotify = conf['ql_multiple_notify']
+updateOrion = conf['update_orion']
 updateStrategy = conf['update_strategy']
 createAttributeSubscriptions = conf['create_attribute_subscriptions']
 

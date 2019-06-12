@@ -9,5 +9,6 @@
     "update_strategy": "medium",
     "send_to_ql": true,
     "ql_multiple_notify": true,
+    "update_orion": true,
     "create_attribute_subscriptions": false
 }
