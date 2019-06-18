@@ -140,6 +140,11 @@ def createEntities():
             if response.status_code == 201:
                 log.info( 'Entity created' )
             
+            else:
+                log.error( f'Failed to create entity. HTTP status code: {response.status_code}.' )
+                log.error( response.text )
+                exit()
+                
         elif response.status_code == 200:
             createEntities.entityAlreadyExists = True
             log.info( f'{entityId} already exists' )
