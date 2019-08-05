@@ -56,10 +56,13 @@ def getData( begin, end ):
     # we want to log how long getting data for all datanodes takes so get the current time before we start
     startTime = time.time()
     # we have to make a separate request for each datanode we want measurements for
-    # request parameters
+    # request parameters¨: the begin and end times
+    # also use maximum amount for limit i.e. the number of values fetched
+    # the real maximum amount of values seen is a lot less about 13000 measurements
     params = {
         'begin': begin,
-        'end': end
+        'end': end,
+        'limit': 100000
     }
 
     retryTime = 10 # if request fails how long to wait before retrying    
