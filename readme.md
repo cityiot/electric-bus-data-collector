@@ -60,13 +60,20 @@ Determines how IoT-Ticket data is converted to FIWARE entities. Normally there i
 
 busIDs attribute has the ids of the IoT-Ticket sites where the bus data is saved to. They are mapped to bus numbers used by the city. The number is used in naming the FIWARE entities. For example bus with number 14 is named Vehicle:TKL14.
 
-The attributes attribute holds an object that defines how values from an IoT-Ticket datanode are converted to entity attributes. A key name is the name of a data node and the object it contains has conversion info. There is at least a name that determines the entity attribute name. Type is the NGSI v2 type. If type is omitted Number is assumed. Mapping is an object that maps the datanode value to a different value. For example door status is indicated with numbers in IoT-Ticket but for the FIWARE entity they are converted to human understandable text e.g. value 0 to open. 
+The attributes attribute holds an object that defines how values from an IoT-Ticket datanode are converted to entity attributes. A key name is the name of a data node and the object it contains has conversion info. There is at least a name that determines the entity attribute name. Type is the NGSI v2 type. If type is omitted Number is assumed. Mapping is an object that maps the datanode value to a different value. For example door status is indicated with numbers in IoT-Ticket but for the FIWARE entity they are converted to human understandable text e.g. value 0 to open.
+
+### logging.json
+
+Contains configuration settings for log rotating. See the logging section below for details.
+
+- file_max_size_mb: The maximum size of a single log file in megabytes.
+- number_of_backups: number of log files kept
 
 ## Logging
 
 The tool logs information to the console and two files. The log files will be created to the logs directory. Everythin is logged to the console and log_debug.txt. This includes information about each data collecting from IoT-Ticket and sending it to FIWARE. Log.txt log file contains only info level messages, warnings and errors.
 
-Log rotating is used to limit log sizes. Both log files can grow to 1 MB when a copy of the file is made and a new log file started. 10 copies of each file is kept. Older logs are deleted.
+Log rotating is used to limit log sizes. Both log files can grow to  the configured size after which  a copy of the file is made and a new log file started. Configured number of copies of each file is kept. Older logs are deleted.
 
 ## Usage
 
