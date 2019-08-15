@@ -71,9 +71,16 @@ def getData( begin, end ):
         data[siteId] = siteData
         for node in nodes:
             # might have to try the request multiple times if we encounter errors
+            retrying = False # is this a retry of a previously failed attempt
             while True:
+                headers = { 'Accept-Encoding': 'gzip, deflate' }
+                # for some reason the above requests default header causes an issue
+                # with some requests so if we had an error with this request before lets not use it
+                if retrying:
+                    headers['Accept-Encoding'] = None
+                    
                 try:
-                    processdata = requests.get( node['href'] +'/processdata', auth = auth, params = params, timeout = 120 )
+                    processdata = requests.get( node['href'] +'/processdata', auth = auth, params = params, headers = headers, timeout = 120 )
                     if processdata.status_code == 200:
                         siteData[ node['name'] ] = processdata.json().get('items', [] )
                         break # done got the data
@@ -89,6 +96,7 @@ def getData( begin, end ):
                     log.exception( f'Exception when getting measurements from IoT-Ticket. Retrying after {retryTime} seconds.')
                     
                 time.sleep( retryTime )
+                retrying = True
             
     log.debug( f'Measurements fetched in {time.time() -startTime:.1f} seconds.' )
     return data
