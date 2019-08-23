@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Copyright 2019 Tampere University
+# This software was developed as a part of the CityIoT project: https://www.cityiot.fi/english
+# This source code is licensed under the 3-clause BSD license. See license.txt in the repository root directory.
+# Author(s): Otto Hylli <otto.hylli@tuni.fi>
 '''
 Responsible for converting the IoT-Ticket measurements to FIWARE entity updates.
 Contains the conversion information and mapping for IoT-Ticket site ids to bus names.
