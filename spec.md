@@ -3,8 +3,19 @@
 ## Description
 
 This document describes how measurements from electric buses originally stored
-in Wapice IoT-Ticket are stored to FIWARE.
+in Wapice IoT-Ticket are stored to FIWARE. Data is collected from 4 electric buses and one hybrid bus operating on the same
+bus line. The line is line 2 operating between Pyynikintori and Rauhamiemi which takes about 20 minutes. Overall 18 different measurements are available. Measurements collected include speed, location as latitude and
+longitude, battery charge state percent, power, energy consumed, brace air
+pressure and door status. However not all measurements are available for all
+buses most notably only speed and location are availabele from the hybrid bus
+due to issues with configuring the collection device. The measurements are sent to the IoT-Ticket in
+real time through Wapice's proprietary hardware which is connected to the bus
+systems. The update interval for the measurements varies. Some measurements such
+as charge state and door status are updated about every 5 seconds while some
+others such as location and speed are updated about every second.
 
+Measurements are transfered from IoT-Ticket to FIWARE in near real time. Measurements from a period of one  minute at a time are collected from IoT-Ticket and send to FIWARE with the newest values for all attributes going to Orion and everything going to Quantumleap. There is a 30 second delay for this collection to ensure that all measurements have arrived to IoT-Ticket. The timestamps are rounded to second precision from the microsecond precision used by IoT-Ticket. As of this writing on 2019-10-28 the data collection is on going and measurements are available from the beginning of this year.
+ 
 ## Data Model
 
 The data model is based on the official FIWARE
@@ -353,7 +364,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:18.192881"
+                "value": "2019-04-03T14:52:18.192881Z"
             }
         }
     },
@@ -362,7 +373,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:19.867419"
+                "value": "2019-04-03T14:52:19.867419Z"
             }
         }
     },
@@ -371,7 +382,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:18.527938"
+                "value": "2019-04-03T14:52:18.527938Z"
             }
         }
     },
@@ -383,7 +394,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:18.578853"
+                "value": "2019-04-03T14:52:18.578853Z"
             }
         }
     },
@@ -392,7 +403,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:20.218114"
+                "value": "2019-04-03T14:52:20.218114Z"
             }
         }
     },
@@ -401,7 +412,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:16.938936"
+                "value": "2019-04-03T14:52:16.938936Z"
             }
         }
     },
@@ -410,7 +421,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:19.817713"
+                "value": "2019-04-03T14:52:19.817713Z"
             }
         }
     },
@@ -419,7 +430,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:16.318142"
+                "value": "2019-04-03T14:52:16.318142Z"
             }
         }
     },
@@ -428,7 +439,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:15.293451"
+                "value": "2019-04-03T14:52:15.293451Z"
             }
         }
     },
@@ -437,7 +448,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:19.419983"
+                "value": "2019-04-03T14:52:19.419983Z"
             }
         }
     },
@@ -446,7 +457,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:16.417363"
+                "value": "2019-04-03T14:52:16.417363Z"
             }
         }
     },
@@ -455,7 +466,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:18.200178"
+                "value": "2019-04-03T14:52:18.200178Z"
             }
         }
     },
@@ -464,7 +475,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:16.757913"
+                "value": "2019-04-03T14:52:16.757913Z"
             }
         }
     },
@@ -473,7 +484,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:16.757913"
+                "value": "2019-04-03T14:52:16.757913Z"
             }
         }
     },
@@ -482,7 +493,7 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:17.109580"
+                "value": "2019-04-03T14:52:17.109580Z"
             }
         }
     },
@@ -491,9 +502,32 @@ Normalized NGSI response
         "metadata": {
             "timestamp": {
                 "type": "DateTime",
-                "value": "2019-04-03T14:52:19.867419"
+                "value": "2019-04-03T14:52:19.867419Z"
             }
         }
     }
 }
 ```
+
+## Accessing the data
+
+The measurements are stored in the Tampere University CityIoT FIWARe platform: <https://tlt-cityiot.rd.tuni.fi>
+The used FIWARE service is public_transport and all bus entities are under the /tampere/electric_bus service path.
+
+### Example requests
+
+A few example curl commands for getting the data. Replace your_apikey with a api key that has at least read access to public_transport service.
+
+Get all bus entities with their attributes from Orion:
+
+    curl -H 'Fiware-Service: public_transport' -H 'Fiware-ServicePath: /Tampere/electric_bus' -H 'apikey: your_apikey' "https://tlt-cityiot.rd.tuni.fi/orion/v2/entities"
+
+Get the power and speed of bus with id Vehicle:TKL15 from Orion:
+    
+    curl -H 'Fiware-Service: public_transport' -H 'Fiware-ServicePath: /Tampere/electric_bus' -H 'apikey: your_apikey' "https://tlt-cityiot.rd.tuni.fi/orion/v2/entities/Vehicle:TKL15?attrs=speed,power"
+
+Get all values for power and speed for TKL15 between 14:01 and 14:02 on 28th of October 2019 from quantumleap:
+ 
+    curl -H 'Fiware-Service: public_transport' -H 'Fiware-ServicePath: /Tampere/electric_bus' -H 'apikey: your_apikey' "https://tlt-cityiot.rd.tuni.fi/quantumleap/v2/entities/Vehicle:TKL15?attrs=speed,power&&fromDate=2019-10-28T12:01:00&&toDate=2019-10-28T12:02:00"
+
+Note: times above are UTC time.
