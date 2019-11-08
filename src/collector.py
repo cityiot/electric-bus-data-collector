@@ -25,7 +25,7 @@ historyPeriod = 3600 *2
 # same as above but for real time collection
 rtPeriod = 60
 # in real time collection how long to wait to make sure that measurements have arrived to IoT-Ticket before getting them
-wait = 30
+wait = 60
 
 # convert to microsecons used by IoT-Ticket API
 historyPeriod = s2mrs( historyPeriod )
