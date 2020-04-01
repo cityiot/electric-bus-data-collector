@@ -1,6 +1,6 @@
 # Electric bus data collector
 
-A tool for collecting Tampere electric bus data from IoT-Ticket to FIWARE.
+A tool for collecting city of Tampere electric bus data from [IoT-Ticket](https://iot-ticket.com) to [FIWARE](https://www.fiware.org/) developed in the [CityIoT project](https://www.cityiot.fi/english).
 See [spec.md](spec.md) for a description of the FIWARE data model used. The tool can collect historical measurements for the given time period or continuously collect near real time measurements.
 It can also be given just a start time for a historical period and after collecting all measurements from
 that untill the current time it starts collecting the real time measurements.
@@ -111,4 +111,4 @@ The compose file connects the conf and logs directories as volumes inside the co
 
 - IoT-Ticket measurement time stamps are rounded to the nearest second. The original time stamps are mostly unique for each measurement since they are updated separately. Without rounding they would not go nicely to QuantumLeap since internally it creates a separate database row for each time stamp.
 - When data is send directly to QuantumLeap only the latest updates are sent to Orion for each measurement collection round. In history collection the duration of this round is 2 hours and in real time 60 seconds.
-- When real time collecting there is a short 30 seconds delay between the current time and the period measurements are collected from. This is to ensure that the measurements have arrived to IoT-Ticket.
+- When real time collecting there is a short 60 seconds delay between the current time and the period measurements are collected from. This is to ensure that the measurements have arrived to IoT-Ticket.

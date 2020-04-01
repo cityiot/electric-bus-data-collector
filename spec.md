@@ -7,14 +7,14 @@ in Wapice IoT-Ticket are stored to FIWARE. Data is collected from 4 electric bus
 bus line. The line is line 2 operating between Pyynikintori and Rauhamiemi which takes about 20 minutes. Overall 18 different measurements are available. Measurements collected include speed, location as latitude and
 longitude, battery charge state percent, power, energy consumed, brace air
 pressure and door status. However not all measurements are available for all
-buses most notably only speed and location are availabele from the hybrid bus
+buses most notably only speed and location are available from the hybrid bus
 due to issues with configuring the collection device. The measurements are sent to the IoT-Ticket in
 real time through Wapice's proprietary hardware which is connected to the bus
 systems. The update interval for the measurements varies. Some measurements such
 as charge state and door status are updated about every 5 seconds while some
 others such as location and speed are updated about every second.
 
-Measurements are transfered from IoT-Ticket to FIWARE in near real time. Measurements from a period of one  minute at a time are collected from IoT-Ticket and send to FIWARE with the newest values for all attributes going to Orion and everything going to Quantumleap. There is a 30 second delay for this collection to ensure that all measurements have arrived to IoT-Ticket. The timestamps are rounded to second precision from the microsecond precision used by IoT-Ticket. As of this writing on 2019-10-28 the data collection is on going and measurements are available from the beginning of this year.
+Measurements are transfered from IoT-Ticket to FIWARE in near real time. Measurements from a period of one  minute at a time are collected from IoT-Ticket and send to FIWARE with the newest values for all attributes going to Orion and everything going to Quantumleap. There is a 60 second delay for this collection to ensure that all measurements have arrived to IoT-Ticket. The timestamps are rounded to second precision from the microsecond precision used by IoT-Ticket. As of this writing on 2019-10-28 the data collection is on going and measurements are available from the beginning of this year.
  
 ## Data Model
 
